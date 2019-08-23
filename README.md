@@ -8,9 +8,13 @@ To build, simply connected the anode of each LED through a seies current-limitin
 Use the following connections:
 
 int whiteled = D1; 
+
 int greenled = D2; 
+
 int redled = D5; 
+
 int beeper = D6; 
+
 
 The pin IDs used by the Arduino IDE are marked on the TOP of the NodeMCU board. Do not use the NoseMCU native pin IDs or the GPIO IDs. See Google for pin maps showing the three pin numbering schemes.
 
@@ -34,11 +38,17 @@ The following Linux commands may also be used to remotely control the LEDs from 
 
 
 wget -q http://xxx.xxx.xxx.x/WHITELED=OFF
+
 wget -q http://xxx.xxx.xxx.x/REDLED=OFF
+
 wget -q http://xxx.xxx.xxx.x/GREENLED=OFF
+
 wget -q http://xxx.xxx.xxx.x/WHITELED=ON
+
 wget -q http://xxx.xxx.xxx.x/REDLED=ON
+
 wget -q http://xxx.xxx.xxx.x/GREENLED=ON
+
 
 I use in my  Asterisk sysstem to indicate the status of a group of trunks. The lamp lights if there is at least one call to a specific group of trunks or extensions active. I set up a global variable to track incoming calls in extensions.conf in the [globals] area:
 
@@ -48,29 +58,44 @@ CNETCOUNT=0
 Then, there needs to be a single entry point context for all calls that the LED tracks. Multiple entry points work too if the same code captures all extensions to be tracked:
 
 exten => _X.,1,SetGlobalVar(MFTRUNKCOUNT=$[${CNETCOUNT} + 1]
+
 exten => _X.,n,System(wget -q http://192.168.1.6/GREENLED=ON)
+
 
 This code increments the global call counter and turns on the LED.
 
 In the "h" extension of all contexts where the call may terminate (be sure to include any nacro contexts called in the extension):
 
 exten => h,1,SetGlobalVar(CNETCOUNT=$[${CNETCOUNT} - 1]
+
 exten => h,n,GotoIf($[ ${CNETCOUNT} > 0]?endcall:ledoff)
+
 exten => h,n(ledoff),System(wget -q http://192.168.1.6/GREENLED=OFF)
+
 exten => h,n(endcall),HangUp
+
 
 This decrements the call counter and turns off the LED if no call remain active.
 
 It is helpfult to set up an extension to reset counters and LEDs if things get out of sync:
 
 exten => 888,1,SetGlobalVar(PMFPSTNCOUNT=0)
+
 exten => 888,n,SetGlobalVar(CNETCOUNT=0)
+
 exten => 888,n,SetGlobalVar(MFTRUNKCOUNT=0
+
 exten => 888,n,System(wget -q http://192.168.1.6/WHITELED=OFF)
+
 exten => 888,n,System(wget -q http://192.168.1.6/REDLED=OFF)
+
 exten => 888,n,System(wget -q http://192.168.1.6/GREENLED=OFF)
+
 exten => 888,n,PlayTones(!1400/500)
+
 exten => 888,n,Wait(1)
+
 exten => 888,n,Hangup
+
 
 
