@@ -16,7 +16,7 @@ int redled = D5;
 int beeper = D6; 
 
 
-The pin IDs used by the Arduino IDE are marked on the TOP of the NodeMCU board. Do not use the NoseMCU native pin IDs or the GPIO IDs. See Google for pin maps showing the three pin numbering schemes.
+The pin IDs used by the Arduino IDE are marked on the TOP of the NodeMCU board. Do not use the NodeMCU native pin IDs or the GPIO IDs. See Google for pin maps showing the three pin numbering schemes.
 
 I simply wire wrapped connecting wires to the socket of the NodeMCU, but use whatever construction method suits you. Power the unit through the USB cable for convenience, or make connections directly to the board. I used a small USB power bank to power mine for portable operation.
 
@@ -26,7 +26,7 @@ See repository for photos of a modified WE beehive unit. Of course, any three LE
 
 You need to load the ESP8266 board definitions into the Arduino IDE before compiling. I used the default board settings.
 
-You need to hard-code your SSID and wifi password into the code. After loading the first time, open the serial console on the Arduino IDE. The program will print the connection status and the assigned DHCP IP address. Use the indicated URL to manually control the LEDs.\
+You need to hard-code your SSID and wifi password into the code. After loading the first time, open the serial console on the Arduino IDE. The program will print the connection status and the assigned DHCP IP address. Use the indicated URL to manually control the LEDs.
 
 The code runs a lamp test on power-up, lighting each LED in turn, then beeping once. The unit indicates WIFI status by giving a very brief flash on the green LED every 15 seconds to indicate the unit is connected. If the green LED is switched on, the green LED will blink "off" in the same fashion as a status and heartbeat indicator.
 
@@ -64,7 +64,7 @@ exten => _X.,n,System(wget -q http://192.168.1.6/GREENLED=ON)
 
 This code increments the global call counter and turns on the LED.
 
-In the "h" extension of all contexts where the call may terminate (be sure to include any nacro contexts called in the extension):
+In the "h" extension of all contexts where the call may terminate (be sure to include any macro contexts called in the extension):
 
 exten => h,1,SetGlobalVar(CNETCOUNT=$[${CNETCOUNT} - 1]
 
