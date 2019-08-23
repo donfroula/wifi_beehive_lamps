@@ -3,7 +3,7 @@ Uses an ESP8266 NodeMCU WIFI dev. board to update a three lamp Western Electric 
 
 This project updates a 3-lamp Western Electric "beehive" lamp set for WIFI operation. It may be used to indicate various conditions in an Asterisk PBX by inserting "wget" statements in the code to control the three LEDs. A minimalist web server runs on the NodeMCU board to permit LED control and status check from a web browser.
 
-To build, simply connected the anode of each LED through a seies current-limiting resistor. The output of the NodeMCU board pins can only supply 10mA at 3.3 volts. Some LEDs drop 2.5 volts, so the resistor values are fairly critical and small. Connect the small piezo speaker directly to the NodeMCU pin and ground.
+To build, simply connected the anode of each LED through a seies current-limiting resistor. Connect the cathode of the LEDs directly to ground. The output of the NodeMCU board pins can only supply 10mA at 3.3 volts. Some LEDs drop 2.5 volts, so the resistor values are fairly critical and small. Connect the small piezo speaker directly to the NodeMCU pin and ground.
 
 Use the following connections:
 
