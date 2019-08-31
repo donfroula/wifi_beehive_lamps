@@ -28,7 +28,7 @@ You need to load the ESP8266 board definitions into the Arduino IDE before compi
 
 You need to hard-code your SSID and wifi password into the code. After loading the first time, open the serial console on the Arduino IDE. The program will print the connection status and the assigned DHCP IP address. Use the indicated URL to manually control the LEDs.
 
-The code runs a lamp test on power-up, lighting each LED in turn, then beeping once. The unit indicates WIFI status by giving a very brief flash on the green LED every 15 seconds to indicate the unit is connected. If the green LED is switched on, the green LED will blink "off" in the same fashion as a status and heartbeat indicator.
+The code runs a lamp test on power-up, lighting each LED in turn, then beeping once. The red LED will then flash until the initial WIFI connection completes. The unit then indicates WIFI status by giving a very brief flash on the green LED every 15 seconds to indicate the unit is connected. If the green LED is switched on, the green LED will blink "off" in the same fashion as a status and heartbeat indicator.
 
 Similarly, if WIFI connectivity is lost, the red LED will blink every 15 secondss along with a low beep. Inverse blinking is used if the red LED is already lit.
 
